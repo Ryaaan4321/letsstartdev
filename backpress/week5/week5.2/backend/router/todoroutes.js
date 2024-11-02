@@ -1,9 +1,10 @@
 const express = require('express');
 const { Todo } = require('../databse/db');
+const CircularJSON = require('circular-json');
 const { checkUser } = require('../middleware/usermiddleware')
 const router = express.Router();
 
-router.post('/createtodo', checkUser, async (req, res) => {
+router.post('/createtodo',  async (req, res) => {
     try {
         const { title, descreption } = req.body;
 
@@ -25,12 +26,11 @@ router.post('/createtodo', checkUser, async (req, res) => {
         });
     }
 });
-router.get('/alltodos', checkUser, async (req, res) => {
-    const todos = await Todo.find({});
+router.get('/alltodos', async (req, res) => {
+    const todos = await Todo.find().lean();
     console.log(todos);
-    res.status(201).json({
-        msg: "fetched all the todos succesfully"
-    })
+    res.json(JSON.parse(JSON.stringify(todos)));
+    console.log(typeof(res));
 });
 
 router.put('/updatetodo', async (req, res) => {

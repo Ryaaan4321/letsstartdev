@@ -23,7 +23,7 @@ export function Createtodos() {
       <br />
       <button
         onClick={() => {
-          fetch("http://localhost:3000/todo", {
+          fetch("http://localhost:3000/todo/createtodo", {
             method: "POST",
             body: JSON.stringify({
               title: title,
@@ -39,7 +39,7 @@ export function Createtodos() {
         }}
       >
         Add a todo
-      </button>
+      </button><br/>
     </div>
   );
 }
